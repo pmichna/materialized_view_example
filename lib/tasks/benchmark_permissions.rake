@@ -6,6 +6,7 @@ task benchmark_permissions: :environment do
   user = User.order('RANDOM()').first
 
   n = 1000
+  PermissionsCheckResult.refresh
 
   Benchmark.bm do |x|
     x.report('joins - 1 permission') { n.times { ; joins_check(user, permissions(1)); } }
